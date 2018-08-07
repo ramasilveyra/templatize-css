@@ -10,52 +10,56 @@
   </a>
 </div>
 
-<h1 align="center">Templatize CSS files (templatize-css)</h1>
+<h1 align="center">Templatize CSS files</h1>
+
+> Do you want to generate dynamic CSS and you can't use CSS in JS?
 
 <h3 align="center">Input</h3>
 
 ```css
 :root {
-  --main-bg-color: brown; /* templatize-css: track */
-  --main-danger-color: brown; /* templatize-css: track */
+  --main-primary-color: brown; /* templatize-css: track */
+  --main-mobile-primary-color: brown; /* templatize-css: track */
+  --main-text-color: #fff; /* templatize-css: track */
+  --main-link-color: #000;
 }
 
-.btn, .link-btn {
-  background-color: var(--main-bg-color);
+.btn {
+  background-color: var(--main-primary-color);
+  color: var(--main-text-color);
   border: 0;
-  padding: 10px 15px;
+  padding: 10px 40px;
 }
 
-.main {
-  margin: auto;
+.btn-link {
+  background-color: var(--main-link-color);
+  border: 0;
+  padding: 10px 40px;
 }
 
-.alert {
-  padding: 4px 4px;
-  border: 1px solid #ddd;
-}
-
-.alert--danger {
-  background-color: var(--main-danger-color);
+@media (min-width: 992px) {
+  .btn::after {
+    background-color: var(--main-mobile-primary-color);
+    padding: 5px 10px;
+  }
 }
 ```
 
 <h3 align="center">Output</h3>
 
 ```js
-
 module.exports = function templatizeCSS(locals) {
-  const css = `.btn, .link-btn {
-  background-color: ${locals.mainBgColor};
+  const css = `.btn {
+  background-color: ${locals.mainPrimaryColor};
+  color: ${locals.mainTextColor}
 }
-
-.alert--danger {
-  background-color:  ${locals.mainDangerColor};
-}
-`;
+@media (min-width: 992px) {
+  .btn::after {
+    background-color: ${locals.mainMobilePrimaryColor}
+  }
+}`;
   return css;
-}
-
+};
 ```
 
 <h2 align="center">Table of Contents</h2>
