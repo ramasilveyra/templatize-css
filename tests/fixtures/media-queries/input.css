@@ -1,0 +1,9 @@
+:root {
+  --main-bg-color: brown; /* templatize-css: track */
+}
+
+@media (min-width: 992px) {
+  .btn::after {
+    background-color: var(--main-bg-color);
+  }
+}

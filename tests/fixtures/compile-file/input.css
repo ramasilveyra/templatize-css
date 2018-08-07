@@ -1,0 +1,26 @@
+:root {
+  --main-primary-color: brown; /* templatize-css: track */
+  --main-mobile-primary-color: brown; /* templatize-css: track */
+  --main-text-color: #fff; /* templatize-css: track */
+  --main-link-color: #000;
+}
+
+.btn {
+  background-color: var(--main-primary-color);
+  color: var(--main-text-color);
+  border: 0;
+  padding: 10px 40px;
+}
+
+.btn-link {
+  background-color: var(--main-link-color);
+  border: 0;
+  padding: 10px 40px;
+}
+
+@media (min-width: 992px) {
+  .btn::after {
+    background-color: var(--main-mobile-primary-color);
+    padding: 5px 10px;
+  }
+}

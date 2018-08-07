@@ -1,0 +1,7 @@
+:root {
+  --main-bg-color: brown;
+}
+
+.btn {
+  background-color: var(--main-bg-color);
+}

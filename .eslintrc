@@ -1,0 +1,11 @@
+{
+  "extends": "auth0/prettier",
+  "overrides": [
+    {
+      "files": ["tests/*.js"],
+      "env": {
+        "jest": true
+      }
+    }
+  ]
+}

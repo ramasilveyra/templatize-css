@@ -1,0 +1,85 @@
+{
+  "name": "templatize-css",
+  "version": "1.0.0-beta.0",
+  "description": "Templatize CSS files.",
+  "main": "build/index.js",
+  "scripts": {
+    "build": "babel src -d build -s",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "clean": "del ./build",
+    "lint": "eslint .",
+    "precommit": "lint-staged",
+    "prepublish": "yarn run clean && yarn run build",
+    "test-ci-partial": "yarn run test-coverage",
+    "test-ci": "yarn run lint && yarn run test-ci-partial && codecov",
+    "test-coverage": "yarn run jest --coverage",
+    "test": "jest"
+  },
+  "author": {
+    "name": "Ramiro Silveyra d'Avila",
+    "twitter": "ramasilveyra"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=8"
+  },
+  "bin": {
+    "templatize-css": "bin/templatize-css.js"
+  },
+  "files": [
+    "bin",
+    "build"
+  ],
+  "repository": "git@github.com:ramasilveyra/templatize-css.git",
+  "keywords": [
+    "css",
+    "templatize",
+    "postcss"
+  ],
+  "dependencies": {
+    "chalk": "^2.4.1",
+    "lodash": "^4.17.10",
+    "make-dir": "^1.3.0",
+    "ora": "^3.0.0",
+    "postcss": "^7.0.2",
+    "yargs": "^12.0.1"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-jest": "^23.0.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-react": "^6.24.1",
+    "codecov": "^3.0.2",
+    "conventional-changelog-cli": "^2.0.0",
+    "del-cli": "^1.1.0",
+    "eslint": "^4.19.1",
+    "eslint-config-auth0": "^11.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^5.1.1",
+    "eslint-plugin-react": "^7.1.0",
+    "husky": "^0.14.3",
+    "jest": "^23.4.2",
+    "lint-staged": "^7.1.2",
+    "prettier": "^1.13.0",
+    "regenerator-runtime": "^0.11.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!**/node_modules/**",
+      "!**/build/**",
+      "!**/coverage/**"
+    ],
+    "testEnvironment": "node",
+    "testMatch": [
+      "**/*.test.js"
+    ]
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --single-quote --print-width 100 --write",
+      "git add"
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`while using templatizeCss.compileFile() should convert css file to js template 1`] = `
+"module.exports = function templatizeCSS(locals) {
+  const css = \`.btn {
+  background-color: \${locals.mainPrimaryColor};
+  color: \${locals.mainTextColor}
+}
+@media (min-width: 992px) {
+  .btn::after {
+    background-color: \${locals.mainMobilePrimaryColor}
+  }
+}\`;
+  return css;
+};
+"
+`;

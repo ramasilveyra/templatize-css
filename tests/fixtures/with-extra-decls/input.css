@@ -1,0 +1,9 @@
+:root {
+  --main-bg-color: brown; /* templatize-css: track */
+}
+
+.btn {
+  background-color: var(--main-bg-color);
+  border: 0;
+  padding: 10px 40px;
+}
