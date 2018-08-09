@@ -32,6 +32,11 @@ describe('while using templatizeCss.compile()', () => {
     const result = compile(input);
     expect(result).toBe(output);
   });
+  it('should convert CSS file with multiple decls to js template', async () => {
+    const { input, output } = await getTestCase('multiple-decls');
+    const result = compile(input);
+    expect(result).toBe(output);
+  });
 });
 
 describe('while using templatizeCss.compileFile()', () => {

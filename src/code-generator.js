@@ -29,7 +29,10 @@ function generateTemplateRaw(css) {
 function fixLocals(templateRaw, tracks) {
   let template = templateRaw;
   tracks.forEach(track => {
-    template = template.replace(`var(${track.prop})`, `\${locals.${camelCase(track.prop)}}`);
+    template = template.replace(
+      new RegExp(`var\\(${track.prop}\\)`, 'g'),
+      `\${locals.${camelCase(track.prop)}}`
+    );
   });
   return template;
 }
