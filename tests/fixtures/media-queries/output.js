@@ -1,8 +1,11 @@
-module.exports = function templatizeCSS(locals) {
-  const css = `@media (min-width: 992px) {
+const defaults = {
+  mainBgColor: 'brown'
+};
+
+const templatize = locals => `@media (min-width: 992px) {
     .btn::after {
-    background-color: ${locals.mainBgColor}
+    background-color: ${locals.mainBgColor || defaults.mainBgColor}
     }
 }`;
-  return css;
-};
+
+module.exports = { defaults, templatize };

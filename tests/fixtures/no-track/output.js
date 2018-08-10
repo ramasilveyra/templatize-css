@@ -1,4 +1,5 @@
-module.exports = function templatizeCSS() {
-  const css = '';
-  return css;
-};
+const defaults = {};
+
+const templatize = () => '';
+
+module.exports = { defaults, templatize };

@@ -1,9 +1,9 @@
 const defaults = {
-  mainBgColor: 'brown'
+  mainBgImage: "url('/static/bg.png')"
 };
 
 const templatize = locals => `.btn {
-  background-color: ${locals.mainBgColor || defaults.mainBgColor}
+  background-image: ${locals.mainBgImage || defaults.mainBgImage}
 }`;
 
 module.exports = { defaults, templatize };

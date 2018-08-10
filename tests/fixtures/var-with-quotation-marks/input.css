@@ -1,0 +1,7 @@
+:root {
+  --main-bg-image: url('/static/bg.png'); /* templatize-css: track */
+}
+
+.btn {
+  background-image: var(--main-bg-image);
+}

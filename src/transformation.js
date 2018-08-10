@@ -1,4 +1,5 @@
 import postcss from 'postcss';
+import { camelCase } from 'lodash';
 
 const FOLLOW_MSG = 'templatize-css: track';
 
@@ -23,7 +24,7 @@ function getTracks(ast) {
       if (followFound) {
         tracks = tracks.map(follow => {
           if (followFound === follow) {
-            return { prop: dec.prop };
+            return { name: dec.prop, defaultValue: dec.value, nameJs: camelCase(dec.prop) };
           }
           return follow;
         });
@@ -49,7 +50,7 @@ function appendNode(tracks, father, node) {
       }
       const rule = postcss.rule({ selector: node.selector });
       node.walkDecls(node2 => {
-        const isTracked = !!tracks.find(f => node2.value.includes(f.prop));
+        const isTracked = !!tracks.find(f => node2.value.includes(f.name));
         if (isTracked) {
           rule.append(node2);
         }

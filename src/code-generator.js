@@ -3,7 +3,7 @@ import { camelCase } from 'lodash';
 
 export default function codeGenerator(info) {
   const css = generateCss(info.ast);
-  const templateRaw = generateTemplateRaw(css);
+  const templateRaw = generateTemplateRaw(css, info.tracks);
   const template = fixLocals(templateRaw, info.tracks);
   return template;
 }
@@ -16,12 +16,25 @@ function generateCss(ast) {
   return css;
 }
 
-function generateTemplateRaw(css) {
+function generateTemplateRaw(css, tracks) {
+  const tracksLast = tracks.length - 1;
+  const defaultsPrettyObj = tracks.reduce(
+    (str, track, i) =>
+      `${str}\n  ${track.nameJs}: ${
+        track.defaultValue.includes("'")
+          ? JSON.stringify(track.defaultValue)
+          : `'${track.defaultValue}'`
+      }${i === tracksLast ? '' : ','}`,
+    ''
+  );
+  const defaultsPretty = `{${defaultsPrettyObj ? `${defaultsPrettyObj}\n` : ''}}`;
+
   const isEmpty = css === '';
-  const template = `module.exports = function templatizeCSS(${isEmpty ? '' : 'locals'}) {
-  const css = ${isEmpty ? "''" : `\`${css}\``};
-  return css;
-};
+  const template = `const defaults = ${defaultsPretty};
+
+const templatize = ${isEmpty ? '()' : 'locals'} => ${isEmpty ? "''" : `\`${css}\``};
+
+module.exports = { defaults, templatize };
 `;
   return template;
 }
@@ -29,9 +42,10 @@ function generateTemplateRaw(css) {
 function fixLocals(templateRaw, tracks) {
   let template = templateRaw;
   tracks.forEach(track => {
+    const jsVarName = camelCase(track.name);
     template = template.replace(
-      new RegExp(`var\\(${track.prop}\\)`, 'g'),
-      `\${locals.${camelCase(track.prop)}}`
+      new RegExp(`var\\(${track.name}\\)`, 'g'),
+      `\${locals.${jsVarName} || defaults.${jsVarName}}`
     );
   });
   return template;

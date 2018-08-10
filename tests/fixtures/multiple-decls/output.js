@@ -1,7 +1,10 @@
-module.exports = function templatizeCSS(locals) {
-  const css = `.btn {
-  background-color: ${locals.mainBgColor};
-  border: 1px solid ${locals.mainBgColor}
-}`;
-  return css;
+const defaults = {
+  mainBgColor: 'brown'
 };
+
+const templatize = locals => `.btn {
+  background-color: ${locals.mainBgColor || defaults.mainBgColor};
+  border: 1px solid ${locals.mainBgColor || defaults.mainBgColor}
+}`;
+
+module.exports = { defaults, templatize };
